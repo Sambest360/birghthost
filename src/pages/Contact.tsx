@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, X } from 'lucide-react';
 
 const Contact: React.FC = () => {
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,36 +13,65 @@ const Contact: React.FC = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showMobilePopup, setShowMobilePopup] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     formData.append("access_key", "7bfa105c-8315-4f24-b4ed-2b45c2f50d39");
+    
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: json
-    }).then((res) => res.json());
-    if (res.success) {
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          business: '',
-          service: '',
-          budget: '',
-          message: ''
-        });
-      }, 3000);
+    
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
+      }).then((res) => res.json());
+      
+      if (res.success) {
+        setIsSubmitted(true);
+        
+        // Show mobile popup on small screens instead of inline message
+        if (isMobile) {
+          setShowMobilePopup(true);
+        }
+        
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setShowMobilePopup(false);
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            business: '',
+            service: '',
+            budget: '',
+            message: ''
+          });
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      // You might want to show an error popup here as well
     }
   };
 
@@ -52,6 +80,10 @@ const Contact: React.FC = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const closeMobilePopup = () => {
+    setShowMobilePopup(false);
   };
 
   const contactInfo = [
@@ -90,6 +122,35 @@ const Contact: React.FC = () => {
 
   return (
     <div className="pt-20">
+      {/* Mobile Success Popup */}
+      {showMobilePopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 md:hidden">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 animate-fade-in">
+            <div className="flex justify-between items-center mb-4">
+              <CheckCircle className="h-8 w-8 text-green-500" />
+              <button 
+                onClick={closeMobilePopup}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Thank You!
+            </h3>
+            <p className="text-gray-600 mb-4">
+              We've received your message and will get back to you within 24 hours.
+            </p>
+            <button
+              onClick={closeMobilePopup}
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 to-white py-20">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
@@ -108,12 +169,13 @@ const Contact: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Send Us a Message
               </h2>
               
-              {isSubmitted ? (
+              {/* Show success message only on desktop */}
+              {isSubmitted && !isMobile ? (
                 <div className="text-center py-12">
                   <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -125,7 +187,7 @@ const Contact: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                         Full Name *
@@ -159,7 +221,7 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                         Phone Number
@@ -191,27 +253,25 @@ const Contact: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-1 gap-6">
-                    <div>
-                      <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                        Service Needed *
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        required
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors"
-                      >
-                        <option value="">Select a service</option>
-                        {services.map((service) => (
-                          <option key={service} value={service}>
-                            {service}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                  <div>
+                    <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+                      Service Needed *
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      required
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors"
+                    >
+                      <option value="">Select a service</option>
+                      {services.map((service) => (
+                        <option key={service} value={service}>
+                          {service}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>
@@ -254,10 +314,10 @@ const Contact: React.FC = () => {
                 </p>
               </div>
 
-              <div className="grid gap-6">
+              <div className="grid gap-4 md:gap-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                    <div className="text-blue-600 mt-1">
+                    <div className="text-blue-600 mt-1 flex-shrink-0">
                       {info.icon}
                     </div>
                     <div>
@@ -267,7 +327,7 @@ const Contact: React.FC = () => {
                       {info.link !== '#' ? (
                         <a
                           href={info.link}
-                          className="text-gray-600 hover:text-blue-600 transition-colors"
+                          className="text-gray-600 hover:text-blue-600 transition-colors break-all"
                         >
                           {info.details}
                         </a>
@@ -285,7 +345,7 @@ const Contact: React.FC = () => {
                 <p className="text-blue-100 mb-4">
                   Stay updated with our latest work and web design tips (Our social media links are currently under construction and will be added soon).
                 </p>
-                <div className="flex space-x-4">
+                <div className="flex flex-wrap gap-4">
                   <a href="#" className="text-blue-100 hover:text-white transition-colors">
                     Facebook
                   </a>
@@ -305,49 +365,16 @@ const Contact: React.FC = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      {/* <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Common Questions
-            </h2>
-            <p className="text-xl text-gray-600">
-              Quick answers to help you get started
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                question: 'How quickly can you start my project?',
-                answer: 'Most projects can begin within 1-2 weeks after contract signing and initial payment.'
-              },
-              {
-                question: 'Do you work with businesses outside Texas?',
-                answer: 'Yes! We work with small businesses across the United States remotely.'
-              },
-              {
-                question: 'What\'s included in ongoing maintenance?',
-                answer: 'Updates, security monitoring, backups, performance optimization, and content changes.'
-              },
-              {
-                question: 'Can I make changes to my website myself?',
-                answer: 'Absolutely! We build user-friendly websites and provide training on making updates.'
-              }
-            ].map((faq, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-600">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+      {/* Add custom CSS for animation */}
+      <style jsx>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out;
+        }
+      `}</style>
     </div>
   );
 };

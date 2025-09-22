@@ -58,8 +58,8 @@ const Services: React.FC = () => {
     {
       name: 'Basic Plan',
       price: 'R3000',
-      period: '/ 300 p.m',
-      description: 'Perfect for businesses just getting started or trying to integrate digitally',
+      period: '/ R300 p.m',
+      description: 'Perfect for businesses just getting started or trying to integrate digitally. With a R300 monthly fee.',
       features: [
         '5 custom-designed pages (e.g., Home, About, Services, Contact, Gallery)',
         'Responsive design',
@@ -72,9 +72,9 @@ const Services: React.FC = () => {
     },
     {
       name: 'E-commerce Plan',
-      price: '5000',
-      period: '/ 500 p.m',
-      description: 'Perfect for massive businesses or shopping businesses',
+      price: 'R5000',
+      period: '/ R500 p.m',
+      description: 'Perfect for massive businesses or shopping businesses. With a R500 monthly fee.',
       features: [
         'Online store setup with product catalog',
         'Shopping cart & checkout system',
@@ -91,17 +91,17 @@ const Services: React.FC = () => {
       popular: true
     },
     {
-      name: 'Porfolio/Blog Plan',
-      price: '1000',
-      period: '/ 100 p.m',
-      description: ' and small businesses',
+      name: 'Portfolio/Blog Plan',
+      price: 'R1000',
+      period: '/ R100 p.m',
+      description: 'Perfect for creatives and personal blogs/portfolios. With a R100 monthly fee.',
       features: [
         'Up to 1 stylish page layout',
         'Portfolio/gallery showcase for images, videos, or projects',
         'Blog setup with category tags and search',
         'Simple contact form',
         'Domain & hosting',
-        
+
       ],
       popular: false
     }
