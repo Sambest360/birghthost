@@ -185,6 +185,7 @@ const Services: React.FC = () => {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
                   <div className="mb-4">
+                    <span className='text-gray-600 text-sm'>from </span>
                     <span className="text-4xl font-bold text-gray-900">{pkg.price}</span>
                     <span className="text-gray-600">{pkg.period}</span>
                   </div>
