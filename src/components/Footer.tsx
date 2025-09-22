@@ -83,9 +83,9 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2025 BrightHost Web Services. All rights reserved.
+              © BrightHost Web Services. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            {/* <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Privacy Policy
               </a>
@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
               <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Cookie Policy
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

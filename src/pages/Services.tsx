@@ -85,7 +85,8 @@ const Services: React.FC = () => {
         'Social media integration',
         'Stock/inventory management system',
         'Professional Business Emails',
-        'Product search & filtering'
+        'Product search & filtering',
+        'Domain & hosting'
       ],
       popular: true
     },
@@ -98,7 +99,9 @@ const Services: React.FC = () => {
         'Up to 1 stylish page layout',
         'Portfolio/gallery showcase for images, videos, or projects',
         'Blog setup with category tags and search',
-        'Simple contact form'
+        'Simple contact form',
+        'Domain & hosting',
+        
       ],
       popular: false
     }
@@ -233,7 +236,7 @@ const Services: React.FC = () => {
               },
               {
                 question: 'Do you provide ongoing support?',
-                answer: 'Yes! All our packages include ongoing maintenance, updates, and support to keep your website running smoothly.'
+                answer: 'Yes! All our packages include 24/7 ongoing maintenance, updates, and support to keep your website running smoothly.'
               },
               {
                 question: 'Can I update content myself?',
@@ -241,7 +244,7 @@ const Services: React.FC = () => {
               },
               {
                 question: 'What if I need to cancel my service?',
-                answer: 'You can cancel anytime with 30 days notice. We\'ll help you transition your website to another provider if needed.'
+                answer: 'You can cancel anytime with a week\'s notice. We\'ll help you transition your website to another provider if needed.'
               }
             ].map((faq, index) => (
               <div key={index} className="bg-gray-50 p-6 rounded-xl">

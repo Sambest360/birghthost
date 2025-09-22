@@ -76,7 +76,7 @@ const Contact: React.FC = () => {
     {
       icon: <Clock className="h-6 w-6" />,
       title: 'Business Hours',
-      details: 'Mon-Fri: 9AM-6PM CAT',
+      details: 'Mon - Sun | 24/7 Support',
       link: '#'
     }
   ];
@@ -110,7 +110,7 @@ const Contact: React.FC = () => {
             {/* Contact Form */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Get Your Free Quote
+                Send Us a Message
               </h2>
               
               {isSubmitted ? (
@@ -226,7 +226,7 @@ const Contact: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-colors resize-none"
-                      placeholder="Tell us about your project, goals, and any specific requirements..."
+                      placeholder="Tell us about your project, goals, and any specific requirements...If other, please specify."
                     />
                   </div>
 
@@ -283,7 +283,7 @@ const Contact: React.FC = () => {
               <div className="bg-blue-600 p-6 rounded-xl text-white">
                 <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
                 <p className="text-blue-100 mb-4">
-                  Stay updated with our latest work and web design tips(Our social media links will be added soon).
+                  Stay updated with our latest work and web design tips (Our social media links are currently under construction and will be added soon).
                 </p>
                 <div className="flex space-x-4">
                   <a href="#" className="text-blue-100 hover:text-white transition-colors">

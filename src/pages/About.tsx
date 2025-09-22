@@ -30,15 +30,15 @@ const About: React.FC = () => {
     {
       name: 'Samuel Koranteng Amoah Bampo',
       role: 'Founder & Lead Developer',
-      image: 'image 1',
+      image: '/src/img/sam1.jpeg',
       bio: 'With over 5 years in web development, Samuel founded BrightHost to make professional websites accessible to small businesses.'
     },
-    {
-      name: 'Gloria Amanda Oteng',
-      role: 'Founder & Lead Developer',
-      image: 'image 1',
-      bio: 'With over 5 years in web development, Samuel founded BrightHost to make professional websites accessible to small businesses.'
-    }
+    // {
+    //   name: 'Gloria Amanda Oteng',
+    //   role: 'Founder & Lead Developer',
+    //   image: 'image 1',
+    //   bio: 'With over 5 years in web development, Samuel founded BrightHost to make professional websites accessible to small businesses.'
+    // }
   ];
 
   return (
@@ -150,14 +150,14 @@ const About: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Meet Our Team
+              Meet Me
             </h2>
             <p className="text-xl text-gray-600">
-              The dedicated professionals behind your success
+              The dedicated professional behind your success.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-1 gap-8">
             {team.map((member, index) => (
               <div key={index} className="text-center">
                 <div className="mb-6">
@@ -235,7 +235,7 @@ const About: React.FC = () => {
               to="/portfolio"
               className="bg-gray-200 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-200"
             >
-              View Our Work
+              View What I Offer
             </Link>
           </div>
         </div>

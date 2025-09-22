@@ -82,7 +82,7 @@ const Home: React.FC = () => {
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg border">
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="h-6 w-6 text-green-500" />
-                  <span className="font-semibold text-gray-900">15+ Happy Clients</span>
+                  <span className="font-semibold text-gray-900">Happy Clients</span>
                 </div>
               </div>
             </div>

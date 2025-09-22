@@ -67,11 +67,10 @@ const Portfolio: React.FC = () => {
       <section className="bg-gradient-to-br from-blue-50 to-white py-20">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Our Work Speaks for Itself
+            Our Portfolio
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Discover how we've helped businesses like yours succeed online with professional, 
-            results-driven websites, here are a few of the kind of sites we offer.
+            Here are a few of the kind of sites we offer. Like what you see? Let's chat!
           </p>
           <Link
             to="/contact"
